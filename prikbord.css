@@ -1,0 +1,433 @@
+/* Imports */
+@import url(range3.css);
+
+#app {
+    --lijn-kleur: hsla(0, 0%, 0%, 0.85);
+}
+
+/* Vue Transitions */
+.move-enter, .move-leave-to {
+    width: 0 !important;
+    opacity: 0;
+    margin-left: 0 !important;
+}
+
+.move-enter-to, .move-leave {
+
+}
+
+.move-enter-active, .move-leave-active {
+    transition: all .3s;
+}
+
+/* Main */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    /* Een 3D property activeren voor hardware acceleration tijdens animations
+       zorgt ervoor dat tekst er niet lichtjes anders uitziet wanneer animations
+       of transitions actief zijn */
+    backface-visibility: hidden;
+
+    background: url(kurk.png);
+}
+
+.zoeken {
+    position: fixed;
+    z-index: 5;
+    width: 100px;
+    max-width: 100%;
+    height: 50px;
+    background: white;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+    transition: all ease-out 0.35s;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    /* Padding voor het centreren zodat transitions
+       niet met auto-berekeningen moeten werken
+       (zorgen van jitter op einde transitie) */
+    padding: 0 30px;
+    flex-flow: row nowrap;
+    display: flex;
+    align-items: center;
+    opacity: 0.9;
+}
+
+.zoeken-open {
+    width: 800px;
+    border-radius: 0%;
+}
+
+.zoeken .icon-search {
+    width: 40px;
+    height: 40px;
+    display: block;
+}
+
+.zoeken input {
+    display: block;
+    height: 3rem;
+    margin: 0 20px;
+    flex: 1;
+}
+
+.zoeken .icon-archive {
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin-right: 20px;
+}
+
+.zoeken .icon-star {
+    width: 30px;
+    height: 30px;
+    display: block;
+}
+
+.container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px 30px;
+    padding-top: 30px;
+    margin-top: 40px;
+}
+
+.briefje {
+    font: 50px/1 'Reenie Beanie', cursive;
+    height: 250px;
+    width: 275px;
+    border-bottom-right-radius: 60px 5px;
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    --placeholder-color: hsla(0, 0%, 0%, 0.3);
+}
+
+.briefje::after {     
+    content: "";
+    position: absolute;
+    z-index:-1;
+    right:0px;
+    bottom:20px;
+    width:200px;
+    height: 25px;
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow:2px 15px 5px rgba(0, 0, 0, 0.40);
+    transform: matrix(-1, -0.1, 0, 1, 0, 0);
+}
+
+.briefje .pin-container {   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pin-container .pin {
+    display: inline-block; 
+    width: 50px;
+    height: 50px;
+    transform: translateY(-5px);
+    background: url(pin.png) no-repeat;
+    background-position: center;
+    background-size: cover;
+    filter: hue-rotate(300deg);
+}
+
+.pin-container input[type=range] {
+    display: inline-block;
+    width: 150px;
+    margin-left: 30px;
+}
+
+.briefje .inhoud-container {
+    flex: 1;
+}
+
+.briefje .settings-container {
+    padding: 1.1rem 1.5rem 0.3rem 1.5rem;
+    flex: 1;
+
+    /* min-height activeert vaste hoogte,
+       anders wordt de container groter bij het vullen */
+    min-height:0px;
+
+    overflow-y: auto;
+}
+
+.settings-container::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+.settings-titel {
+    text-align: center;
+}
+
+.settings-kleuren, .settings-datum {
+    display: grid;
+    padding: 1rem 0;
+    grid-template-columns: 1fr 130px;
+    grid-row-gap: 1.5rem;
+    font-size: 3rem;
+}
+
+.kleuren-lijst {
+    display: flex;
+}
+
+.kleur-box {
+    width: 40px;
+    height: 30px;
+    margin: 0 4px;
+    border: 5px solid lightgrey;
+    cursor: pointer;
+}
+
+.kleur-box-random {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.3rem;
+}
+
+.settings-tags {
+    font-size: 2rem;
+    text-align: center;
+    padding-top: 1rem;   
+}
+
+.settings-tags input {
+    width: 100px;
+    outline: none;
+    font-size: 1.8rem;
+    border: 1px solid rgb(169, 169, 169);
+}
+
+.tag {
+    display: inline-block;
+    border-radius: 10px;
+    padding: 0.4rem 0.8rem;
+    margin: 0.25rem;
+}
+
+.tag > svg {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+}
+
+.afbeelding-container {
+    padding-top: 0.5rem;
+}
+
+.afbeelding-container label {
+    display: flex;
+    width: 80%;
+    height: 130px;
+    border: 2px dashed rgb(169, 169, 169);
+    font-size: 2rem;
+    text-align: center;
+    margin: 0 auto;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    background-size: contain;
+}
+
+.afbeelding-container input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.afbeelding-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+.briefje .titel-container {
+    position: relative;
+}
+
+.titel-container .titel {
+    all: unset;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    transform: rotate(-4deg);
+    box-sizing: border-box;
+
+    /* EDGE Compatibiliteit omdat eigenschap "all" niet ondersteund wordt */
+    background: transparent;
+    border: none;
+    font: 50px/1 'Reenie Beanie', cursive;
+
+    
+}
+
+.titel-container .titel::placeholder {
+    color: var(--placeholder-color);
+    opacity: 0.5;
+}
+
+.titel-container .lijn {
+    position: absolute;
+    display: inline-block;
+    white-space: nowrap;
+    color: transparent;
+    bottom: 3px;
+    height: 10px;
+    left: 50%;
+    transform: translateZ(1px) translateX(-50%) rotate(-4deg);
+    font: 50px/1 'Reenie Beanie', cursive;
+    /* De lijn licht boven het inhoudsvak,
+       maak de lijn click-through */
+    pointer-events: none;
+}
+
+.briefje .inhoud {
+    all: unset;
+    box-sizing: border-box;
+    margin: 0;
+    display: block;
+    width: 100%;
+    padding: 2rem 2.5rem 0.2rem 2.5rem;
+    overflow: hidden;
+    font-size: 2.7rem;
+    word-wrap: break-word;
+
+    /* EDGE Compatibiliteit omdat eigenschap "all" niet ondersteund wordt */
+    background: transparent;
+    border: none;
+    font: 2.7rem/1 'Reenie Beanie', cursive;
+}
+
+.briefje .inhoud::placeholder {
+    color: var(--placeholder-color);
+    opacity: 0.5;
+}
+
+.briefje .controls-container {
+    width: 100%;
+    height: 35px;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px -2px 8px 0px rgba(0,0,0,0.1);
+}
+
+.controls-container svg {
+    height: 20px;
+    width: 20px;
+    display: block;
+    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.1));
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.icon-controls {
+
+}
+
+.icon-back {
+
+}
+
+.icon-date {
+    fill: none;
+    stroke: black;
+    stroke-width: 2;
+}
+
+.icon-star {
+    width: 22px;
+    height: 22px;
+    transform: translateY(1px);
+}
+
+.icon-tags {
+    width: 26px !important;
+    height: 26px !important;
+    transform: translateY(1px);
+    stroke-width: 1;
+    stroke: black;
+}
+
+.icon-add {
+    stroke-width: 1;
+    stroke: black;
+}
+
+.controls-container .icon-archive {
+    stroke: black;
+    stroke-width: 2;
+    transform: translateY(1px);
+}
+
+.icon-delete {
+    stroke-width: 2;
+    stroke: rgba(0, 0, 0, 0.9);
+    transform: translateY(1px);
+}
+
+.icon-image {
+    width: 26px !important;
+    height: 26px !important;
+    stroke-width: 1;
+    stroke: black;
+}
+
+.icon-color {
+    width: 26px !important;
+    height: 26px !important;
+    /* transform: translateY(1px); */
+}
+
+@media screen and (max-width: 1600px) {
+    .container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+  
