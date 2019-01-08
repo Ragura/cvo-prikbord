@@ -682,11 +682,13 @@
                     }
                 },
                 opslaanInLocalStorage() {
-                    localStorage.setItem("briefjes", JSON.stringify(this.briefjes));
+                    localStorage.setItem("prikbord-briefjes", JSON.stringify(this.briefjes));
                 },
                 ladenVanLocalStorage() {
                     // Laad briefjes uit LocalStorage en zet de string om naar JSON
-                    this.briefjes = JSON.parse(localStorage.getItem("briefjes"));
+                    this.briefjes = JSON.parse(localStorage.getItem("prikbord-briefjes")) || [];
+                    console.log(this.briefjes);
+                    
 
                     // Zet de tijdelijke menu-eigenschappen terug op standaardwaardes
                     this.briefjes.forEach(b => {
